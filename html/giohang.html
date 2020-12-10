@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truong ABC</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/trg.css">
+    <script src="/angular-1.8.0/angular.min.js"></script>
+    <script src="/js/cart.js"></script>
+</head>
+
+<style>
+    ul.nav-pills {
+      top: 20px;
+      position: fixed;
+    }
+    </style>
+
+<body ng-app="myApp" ng-controller="proCtrl" data-spy="scroll" data-target="#myScrollspy" data-offset="1" >
+    <div class="container-fluid">
+        <nav class="row navbar navbar-expand-lg navbar-dark">
+            <div class="abc">
+                <a class="nav-link" href="index.html"><img src="/images/logo.png"  width="100px" height="80px"></a>
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item" >
+                    <a class="nav-link" href="index.html"><i class="fas fa-home"></i> TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gioithieu.html"><i class="fas fa-exclamation"></i> GIỚI THIỆU</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link" href="sanpham.html"><i class="fas fa-list"></i> SẢN PHẨM</a>
+                        <div class="dropdown-content">
+                            <a href="xe.html">Xe</a>
+                            <a href="thoitrang.html">Thời trang</a>
+                            <a href="phukien.html">Các loại phụ kiện khác</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="lienhe.html"><i class="fas fa-phone"></i> LIÊN HỆ</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <div class="nav-link"><i class="fas fa-user-cog"></i> TÀI KHOẢN</div>
+                        <div class="dropdown-content">
+                            <a href="#" data-toggle="modal" data-target="#modelId1">Đăng ký</a>
+                            <a href="#" data-toggle="modal" data-target="#modelId2">Đăng nhập</a>
+                        </div>
+                    </div>
+                </li>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="text-align: center; padding-left: 700px;">
+                        <i class="fas fa-search"></i> <input style="background-color: black; color: white;" type="text" placeholder="search">
+                    </li>
+                </ul>
+            </ul>
+        </nav>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-8 offset-sm-2">
+                <div class="card-header">
+                    Gio Hang
+                </div>
+                
+                <div class="card-body" style="background-color: cornsilk;">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>STT</td>
+                                <td>Tên hàng</td>
+                                <td>Hình ảnh</td>
+                                <td>Số lượng</td>
+                                <td>Đơn giá</td>
+                                <td>Thành tiền</td>
+                            </tr>
+                            <tr ng-repeat=" item in cart">
+                                <td>{{$index+1}}</td>
+                                <td>{{item.name}}</td>
+                                <td><img src="/images store /{{item.photo}}" width="150" height="100" alt=""></td>
+                                <td>
+                                    <div class="js-qty">
+                                        <button class="qty-minus" ng-click="minus(item.id)" type="button">
+                                            <i class="fas fa-minus" ></i>
+                                        </button>
+                                        {{item.soluong}}
+                                        <button class="qty-plus" type="button" ng-click="add(item.id)">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>{{item.price|currency}}</td>
+                                <td>{{item.price*item.soluong|currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button ng-click="clear()">Clear</button>
+                </div>
+                <div class="card-footer" style="background-color: cyan;">
+                    Total: {{total|currency}}
+                    <br>
+                    <a href="sanpham.html">tiep tuc mua hang</a>
+                </div>
+            </div>
+        </div>
+    <br>
+    <footer>
+        <div class="card text-center">
+            <div class="card-footer">
+                <h1>CỬA HÀNG KINH DOANH</h1>
+                    GPKD SỐ: 41X8028483
+                    <br>
+                    Chi nhánh Cửa hàng ABC Tân Phú
+                    52C Phạm Vấn, P.Phú Thọ Hòa, Q.Tân Phú, Tp.Hồ Chí Minh
+                    0935789090 (xemohinh.com.vn)
+                    <br>
+                    Chi nhánh Cửa hàng ABC Quận 3
+                    228 Nguyễn Thượng Hiền, P.4, Q.3, Tp.Hồ Chí Minh
+                    0901747401 (Lê Nhựt Trường)
+                    <br>
+                    Email: truonglnps11031@fpt.edu.vn
+            </div>
+        </div>
+    </footer>
+<!-- ------ -->
+    <div class="modal fade" id="modelId1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ĐĂNG KÝ TÀI KHOẢN</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for=""><strong>Tên đăng nhập</strong></label>
+                                <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for=""><strong>Mật khẩu</strong></label>
+                                <input type="text" class="form-control" placeholder="Mật khẩu">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for=""><strong>Số điện thoại</strong></label>
+                                <input type="text" class="form-control" placeholder="Số điện thoại">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for=""><strong>Email</strong></label>
+                                <input type="text" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for=""><strong>Địa chỉ</strong></label>
+                                <textarea class="form-control" rows="3" placeholder="(đường,phường,quận,TP)"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"><i class="fas fa-save"></i> Đăng ký</button>
+                    <button type="reset"><i class="fas fa-window-close"></i> Huỷ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- ------- -->
+<!-- ------ -->
+    <div class="modal fade" id="modelId2" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ĐĂNG NHẬP</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for=""><strong>Tên đăng nhập</strong></label>
+                                <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for=""><strong>Mật khẩu</strong></label>
+                                <input type="text" class="form-control" placeholder="Mật khẩu">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"><i class="fas fa-save"></i> Đăng nhập</button>
+                    <button type="reset"><i class="fas fa-window-close"></i> Huỷ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- ------- -->
+</body>
+<!-- <script>
+    var app=angular.module("myApp",[]);
+    app.controller("proCtrl",function($scope){
+        $scope.getAmount=function(){
+            var amount=0;
+            for(var i=0; i<$scope.list_item.length;i++){
+               if($scope.list_item[i].buy){
+                  amount += $scope.list_item[i].price * $scope.list_item[i].quantity;
+               } 
+            }
+            return amount;
+        }
+        $scope.addItem = function () {
+        $scope.list_item.push($scope.addMe);
+    } 
+        $scope.list_item=[
+            {
+                name:"Ca phe den",
+                price:15000
+            },
+            {
+                name:"Red-bull",
+                price:20000
+            },
+            {
+                name:"Nuoc suoi",
+                price:10000
+            },
+            {
+                name:"Sting",
+                price:20000
+            },
+        ]
+    });
+</script> -->
+</html>

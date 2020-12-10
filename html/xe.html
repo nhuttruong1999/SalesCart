@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truong ABC</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/trg.css">
+    <script src="/angular-1.8.0/angular.min.js"></script>
+    <script src="/js/giohang.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="proCtrl">
+    <div class="container-fluid">
+        <nav class="row navbar navbar-expand-lg navbar-dark">
+            <div class="abc">
+                <a class="nav-link" href="index.html"><img src="/images/logo.png"  width="100px" height="80px"></a>
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item" >
+                    <a class="nav-link" href="index.html"><i class="fas fa-home"></i> TRANG CHỦ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gioithieu.html"><i class="fas fa-exclamation"></i> GIỚI THIỆU</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link" href="sanpham.html"><i class="fas fa-list"></i> SẢN PHẨM <span class="badge badge-danger">new</span></a>
+                        <div class="dropdown-content">
+                            <a href="xe.html">Xe <span class="badge badge-danger">17</span></a>
+                            <a href="thoitrang.html">Thời trang <span class="badge badge-danger">10</span></a>
+                            <a href="phukien.html">Các loại phụ kiện khác <span class="badge badge-danger">7</span></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="lienhe.html"><i class="fas fa-phone"></i> LIÊN HỆ</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <div class="nav-link"><i class="fas fa-user-cog"></i> TÀI KHOẢN</div>
+                        <div class="dropdown-content">
+                            <a href="#" data-toggle="modal" data-target="#modelId1">Đăng ký</a>
+                            <a href="#" data-toggle="modal" data-target="#modelId2">Đăng nhập</a>
+                        </div>
+                    </div>
+                </li>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="text-align: center; padding-left: 700px;">
+                        <i class="fas fa-search"></i> <input style="background-color: black; color: white;" type="text" placeholder="search">
+                    </li>
+                </ul>
+            </ul>
+        </nav>
+        <div class="row">
+            <article class="col-sm-9">
+                <h1 style="text-align: center; color: seashell;">Xe</h1>
+                <div class="row text-center" style="margin-top: 15px;">
+                    <div class="col-sm-3" ng-repeat="p in list_product |limitTo:8:begin">
+                        <div class="card">
+                            <div class="card-header" style="background-color: black; font-size: 10px;">
+                                {{p.name}}
+                            </div>
+                            <div class="card-body">
+                                <img src="/images store /xe/{{p.photo}}" width="150" height="100" alt="">
+                                <div style="color: black;">{{p.price | currency}}</div>
+                            </div>
+                            <div class="card-footer" style="background-color:black;">
+                                <div class="row">
+                                    <button class="btn-primary col-sm-6" ng-click="addToCartxe(p.id)" ><i class="fa fa-shopping-cart"></i></button> 
+                                    <button class="btn-primary col-sm-6" data-toggle="modal" data-target="#modelIdxe" ng-click="layindexxe(p.id)"><i class="fa fa-eye"></i></button>
+                                </div>   
+                            </div>                                
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button ng-click="first()" class="btn btn-primary">Frist</button>
+                    <button ng-click="prev()" class="btn btn-info">Prev</button>
+                    <button ng-click="next()" class="btn btn-info">Next</button>
+                    <button ng-click="last()" class="btn btn-primary">Last</button>
+                </div>
+            </article>
+            <aside class="col-sm-3">
+                <div class="card poly-cart">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <img src="/images/shoppingcart.gif"> 
+                            </div>
+                            <div class="col-sm-7">
+                                <ul>
+                                    <li>Item:{{tongsl}} </li>
+                                    <li>Price:{{tonggia}} </li>
+                                    <li><a href="giohang.html">VIEW CART</a></li>
+                                </ul>
+                            </div>
+                        </div>    
+                    </div>
+                </div>      
+                <div class="card poly-cart card-primary" data-toggle="collapse" href="#chungloai">
+                    <div class="card-header" style="cursor: pointer;">
+                        <i class="fas fa-list"></i> Các loại sản phẩm
+                    </div>
+                    <ul class="list-group list-group-flush card-collapse " id="chungloai">
+                        <li class="list-group-item"><a href="xe.html"><strong>Xe </strong></a><span class="badge badge-danger">17</span></li>
+                        <li class="list-group-item"><a href="thoitrang.html"><strong>Thời trang </strong></a><span class="badge badge-danger">10</span></li>
+                        <li class="list-group-item"><a href="phukien.html"><strong>Các loại phụ kiện khác </strong></a><span class="badge badge-danger">7</span></li>
+                    </ul>
+                </div>
+                 
+            </aside>
+        </div>
+    </div>
+    <br>
+    <footer>
+        <div class="card text-center">
+            <div class="card-footer">
+                <h1>CỬA HÀNG KINH DOANH</h1>
+                    GPKD SỐ: 41X8028483
+                    <br>
+                    Chi nhánh Cửa hàng ABC Tân Phú
+                    52C Phạm Vấn, P.Phú Thọ Hòa, Q.Tân Phú, Tp.Hồ Chí Minh
+                    0935789090 (xemohinh.com.vn)
+                    <br>
+                    Chi nhánh Cửa hàng ABC Quận 3
+                    228 Nguyễn Thượng Hiền, P.4, Q.3, Tp.Hồ Chí Minh
+                    0901747401 (Lê Nhựt Trường)
+                    <br>
+                    Email: truonglnps11031@fpt.edu.vn
+            </div>
+        </div>
+    </footer>
+<!-- ------ -->
+<div class="modal fade" id="modelId1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ĐĂNG KÝ TÀI KHOẢN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for=""><strong>Tên đăng nhập</strong></label>
+                            <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for=""><strong>Mật khẩu</strong></label>
+                            <input type="password" class="form-control" placeholder="Mật khẩu">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for=""><strong>Số điện thoại</strong></label>
+                            <input type="text" class="form-control" placeholder="Số điện thoại">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for=""><strong>Nhập lại mật khẩu</strong></label>
+                            <input type="password" class="form-control" placeholder="Mật khẩu">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label for=""><strong>Địa chỉ</strong></label>
+                            <textarea class="form-control" rows="3" placeholder="(đường,phường,quận,TP)"></textarea>
+                        </div>
+                    </div>
+                
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group col-sm-6" style="margin-left: 20px;">
+                    <a href=""><strong data-toggle="modal" data-target="#modelId2" data-dismiss="modal">Quay lại đăng nhập</strong></a>
+                </div>
+                <button type="submit" class="btn btn-warning">Đăng ký</button>
+                <button type="reset" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ------- -->
+<!-- ------ -->
+<div class="modal fade" id="modelId2" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ĐĂNG NHẬP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for=""><strong>Tên đăng nhập</strong></label>
+                            <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for=""><strong>Mật khẩu</strong></label>
+                            <input type="password" class="form-control" placeholder="Mật khẩu">
+                        </div>
+                        <div class="form-group col-sm-6" style="text-align: center;">
+                            <a href=""><strong data-toggle="modal" data-target="#modelId3" data-dismiss="modal">Quên mật khẩu ?</strong></a> |
+                            <a href=""><strong data-toggle="modal" data-target="#modelId1" data-dismiss="modal">Đăng ký</strong></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info">Đăng nhập</button>
+                <button type="submit" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ------- -->
+<!-- ------ -->
+<div class="modal fade" id="modelId3" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">QUÊN MẬT KHẨU</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for=""><strong>Tên đăng nhập</strong></label>
+                    <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for=""><strong>Số điện thoại</strong></label>
+                    <input type="text" class="form-control" placeholder="Số điện thoại">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#modelId4" data-dismiss="modal">Gửi yêu cầu</button>
+        <button type="submit" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Huỷ</button>
+    </div>
+</div>
+</div>
+</div>
+<!-- ------- -->
+<!-- ------ -->
+<div class="modal fade" id="modelId4" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">NHẬP MÃ OTP</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <p><strong>Chúng tôi đã gửi mã OTP cho bạn. Vui lòng check tin nhắn từ điện thoại của bạn</strong></p>
+                <div class="form-group col-sm-6">
+                    <label for=""><strong>MÃ OTP</strong></label>
+                    <input type="text" class="form-control" placeholder="Nhập mã OTP">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Xác nhận</button>
+        <button type="submit" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Huỷ</button>
+    </div>
+</div>
+</div>
+</div>
+<!-- ------- -->
+<!-- ---chitietxe---- -->
+<div class="modal fade" id="modelIdxe" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>Chi tiết sản phẩm</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="clom-sm-9">
+                    <div style="text-align: center;">
+                        <img src="/images store /xe/{{p.photo}}" width="350" height="350">
+                    </div>  
+                    <ul style="line-height: 25px; font-size: 15px; width: 400px;height: auto;">
+                        <li><b>Tên hàng:</b> {{p.name}} <span class="badge badge-primary">Italia</span></li>
+                        <li><b>Đơn giá:</b> {{p.price|currency}}</li>
+                        <li><b>Nhà cung cấp:</b> LAMBORGHINI </li>
+                        <li><b>Loại sản phẩm:</b> {{p.kind}} <span class="badge badge-danger">Hàng mới nhập</span></li>
+                        <li><b>Số lượng còn lại:</b> <span class="badge badge-warning">50</span></li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>Hàng liên quan</h4>
+                            <img class="img-thumbnail" src="/images store /xe/{{p.photo}}" style="width: 100px; height:90px ;" >
+                            <img class="img-thumbnail" src="/images store /xe/{{p.photo}}" style="width: 100px; height:90px ;" >
+                            <img class="img-thumbnail" src="/images store /xe/{{p.photo}}" style="width: 100px; height:90px ;">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info" ng-click="addToCartxe(p.id)">Mua hàng</button>
+                <button type="submit" class="btn btn-danger" data-dismiss="modal" aria-label="Close"> Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ------- -->
+</body>
+<style>
+    .modal-header{
+        background-color: cadetblue;
+    }
+</style>
+<!-- <script>
+    var app = angular.module("myApp",[]);
+    app.controller("proCtrl",function($scope){
+        $scope.list_product =[
+            {
+                id:1,
+                name:"A LAMBORGHINI AVENTADOR 750-4 YELLOW 1-36 ALLOY 7105",
+                photo:"MÔ HÌNH LAMBORGHINI AVENTADOR 750-4 SV COUPE YELLOW 1-36 ALLOY 7105.jpeg",
+                price:120,
+                kind:"Xe mô hình"
+            },
+            {
+                id:2,
+                name:" B LAMBORGHINI CENTENARIO LP770-4 RED 1-18 MAISTO 4232",
+                photo:"MÔ HÌNH LAMBORGHINI CENTENARIO LP770-4 RED 1-18 MAISTO 4232.jpeg",
+                price:200,
+                kind:"Xe mô hình"
+            },
+            {
+                id:3,
+                name:"LAMBORGHIN GALLARDO POLICE 1-36 SCALE MODEL 7157",
+                photo:"MÔ HÌNH XE LAMBORGHIN GALLARDO POLICE 1-36 SCALE MODEL 7157.jpeg",
+                price:250,
+                kind:"Xe mô hình"
+            },
+            {
+                id:4,
+                name:"C LAMBORGHINI AVENTADOR LP700-4 PINK 1-18 WELLY 1297",
+                photo:"MÔ HÌNH XE LAMBORGHINI AVENTADOR LP700-4 PINK 1-18 WELLY 1297.jpeg",
+                price:170,
+                kind:"Xe mô hình"
+            },
+            {
+                id:5,
+                name:" LAMBORGHINI AVENTADOR CENTENARIO GREEN 1-18",
+                photo:"MÔ HÌNH XE LAMBORGHINI CENTENARIO GREEN 1-18.jpeg",
+                price:300,
+                kind:"Xe mô hình"
+            },
+            {
+                id:6,
+                name:"LAMBORGHINI HURACAN BLACK 1-36 ALLOY 7114",
+                photo:"MÔ HÌNH XE LAMBORGHINI HURACAN BLACK 1-36 ALLOY 7114.jpeg",
+                price:400,
+                kind:"Xe mô hình"
+            },
+            {
+                id:7,
+                name:"LAMBORGHINI SIAN FKP BLUE 1-32 DOUBLE HORSES 6923",
+                photo:"MÔ HÌNH XE LAMBORGHINI SIAN FKP BLUE 1-32 DOUBLE HORSES 6923.jpeg",
+                price:450,
+                kind:"Xe mô hình"
+            },
+            {
+                id:8,
+                name:"LAMBORGHINI SIAN LIGHTNING BLUE 1-32 XHD 7011",
+                photo:"MÔ HÌNH XE LAMBORGHINI SIAN LIGHTNING BLUE 1-32 XHD 7011.jpeg",
+                price:320,
+                kind:"Xe mô hình"
+            },
+            {
+                id:9,
+                name:"LAMBORGHINI SIAN LIGHTNING GREEN 1-32 XHD 7012",
+                photo:"MÔ HÌNH XE LAMBORGHINI SIAN LIGHTNING GREEN 1-32 XHD 7012.jpeg",
+                price:310,
+                kind:"Xe mô hình"
+            },
+            {
+                id:10,
+                name:"LAMBORGHINI SIAN LIGHTNING RED 1-32 XHD 7009",
+                photo:"MÔ HÌNH XE LAMBORGHINI SIAN LIGHTNING RED 1-32 XHD 7009.jpeg",
+                price:650,
+                kind:"Xe mô hình"
+            },
+            {
+                id:11,
+                name:"LAMBORGHINI SIAN LIGHTNING WHITE 1-32 XHD 7010",
+                photo:"MÔ HÌNH XE LAMBORGHINI SIAN LIGHTNING WHITE 1-32 XHD 7010.jpeg",
+                price:655,
+                kind:"Xe mô hình"
+            },
+            {
+                id:12,
+                name:"LAMBORGHINI URUS GREY 1-18 BBURAGO 5236 ABS",
+                photo:"MÔ HÌNH XE LAMBORGHINI URUS GREY 1-18 BBURAGO 5236.jpeg",
+                price:999,
+                kind:"Xe mô hình"
+            },
+            {
+                id:13,
+                name:"LAMBORGHINI URUS YELLOW 1-18 BBURAGO 5235",
+                photo:"MÔ HÌNH XE LAMBORGHINI URUS YELLOW 1-18 BBURAGO 5235.jpeg",
+                price:699,
+                kind:"Xe mô hình"
+            },
+            {
+                id:14,
+                name:"LAMBORGHINI URUS YELLOW 1-36 WELLY 6137 ABS",
+                photo:"MÔ HÌNH XE LAMBORGHINI URUS YELLOW 1-36 WELLY 6137.jpeg",
+                price:779,
+                kind:"Xe mô hình"
+            }
+        ]
+        
+
+        $scope.layindexxe = function(id){
+            for(var i=0;i<$scope.list_product.length;i++){
+                if($scope.list_product[i].id==id){
+                    $scope.p=angular.copy($scope.list_product[i]);
+                }
+            }
+        }
+
+        $scope.begin=0;
+        $scope.pageCount=Math.ceil($scope.list_product.length/8);
+        $scope.last=function(){
+            $scope.begin=($scope.pageCount-1)*8;
+        }
+        $scope.first=function(){
+            $scope.begin=0;
+        }
+        $scope.next=function(){
+            if($scope.begin<($scope.pageCount-1)*8){
+                $scope.begin+=8;
+            }
+        }
+        $scope.prev=function(){
+            if($scope.begin>0){
+                $scope.begin -=8;
+            }
+        }
+    });
+</script> -->
+</html>
